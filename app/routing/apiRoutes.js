@@ -1,6 +1,4 @@
-var friendsData = require("../data/friendsData");
-
-// var waitListData = require("../data/waitinglistData");
+var friendsData = require("../data/friends");
 
 //Routing
 module.exports = function(app) {
@@ -15,12 +13,11 @@ module.exports = function(app) {
     var newFriendScores = req.body.scores;
     var friendsArray = [];
     var friendCount = 0;
-    var bestMatch = 0;
 
     //Run through all current friends in list.
     for (var i = 0; i < friendsData.length; i++) {
       var totalDiff = 0;
-
+      var bestMatch;
       //Run through and compare scores.
       for (var j = 0; j < newFriendScores.length; j++) {
         totalDiff += Math.abs(
@@ -39,7 +36,9 @@ module.exports = function(app) {
   });
 
   //Return Best Match.
+  var bestMatch;
   var bestie = friendsData[bestMatch];
+
   res.json(bestie);
 
   //Pushes new friend data into friendsArray.
@@ -48,9 +47,10 @@ module.exports = function(app) {
 
 //Clear Data
 
-app.post("/api/clear", function() {
-  // Empty out the array of data
-  friendsData = [];
+// app.post("/api/clear", function() {
+//   // Empty out the array of data
 
-  console.log(friendsData);
-});
+//   friendsData = [];
+
+//   console.log(friendsData);
+// });

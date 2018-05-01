@@ -5,52 +5,47 @@ module.exports = function(app) {
   // API GET Requests
 
   app.get("/api/friends", function(req, res) {
-    res.json(tableData);
+    res.json(friendsData);
   });
 
   app.post("/api/friends", function(req, res) {
-    //Grabs survey scores to compare with other scores in array.
-    var newFriendScores = req.body.scores;
-    var friendsArray = [];
-    var friendCount = 0;
-
-    //Run through all current friends in list.
-    for (var i = 0; i < friendsData.length; i++) {
-      var totalDiff = 0;
-      var bestMatch;
-      //Run through and compare scores.
-      for (var j = 0; j < newFriendScores.length; j++) {
-        totalDiff += Math.abs(
-          parseInt(friendsData[i].scores[j]) - parseInt(newFriendScores[j])
-        );
-      }
-
-      //Push into scores Array.
-      scoresArray.push(totalDiff);
-    }
-
-    //After comparison, find best match.
-    for (var i = 0; i < scoresArray[bestMatch]; ) {
-      bestMatch = i;
-    }
+    var bestie = findBestFriend(req.body);
+    friendsData.push(req.body);
+    res.json(bestie);
   });
-
-  //Return Best Match.
-  var bestMatch;
-  var bestie = friendsData[bestMatch];
-
-  res.json(bestie);
-
-  //Pushes new friend data into friendsArray.
-  friendsArray.push(req.body);
 };
 
-//Clear Data
+function findBestFriend(data) {
+  //Grabs survey scores to compare with other scores in array.
+  var newFriendScores = data.scores;
+  var friendsArray = friendsData;
+  console.log(friendsArray);
+  var scoresArray = [];
 
-// app.post("/api/clear", function() {
-//   // Empty out the array of data
+  //Run through all current friends in list.
+  for (var i = 0; i < friendsData.length; i++) {
+    var totalDiff = 0;
+    //Run through and compare scores.
+    for (var j = 0; j < newFriendScores.length; j++) {
+      console.log(friendsData[i]);
+      console.log(friendsData[i].scores[j]);
+      console.log(newFriendScores[j]);
+      totalDiff += Math.abs(
+        parseInt(friendsData[i].scores[j]) - parseInt(newFriendScores[j])
+      );
+    }
+    //Push into scores Array.
+    scoresArray.push(totalDiff);
+  }
 
-//   friendsData = [];
-
-//   console.log(friendsData);
-// });
+  //After comparison, find best match.
+  var lowscore = 1000;
+  var bestMatch;
+  for (var i = 0; i < scoresArray.length; i++) {
+    if (scoresArray[i] < lowscore) {
+      lowscore = scoresArray[i];
+      bestMatch = i;
+    }
+  }
+  return friendsArray[bestMatch];
+}

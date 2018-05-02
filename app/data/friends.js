@@ -40,6 +40,13 @@ var friendArray = [
     photo:
       "https://longlivethekitty.com/wp-content/uploads/humpty_dumpty_gold-624x300.jpg",
     scores: [1, 1, 5, 4, 1, 2, 1, 4, 2, 5]
+  },
+  {
+    name: "Papa Bear",
+    email: "thisbedisjustright@yahoo.com",
+    photo:
+      "https://secure.img1-fg.wfcdn.com/im/55339039/resize-h800%5Ecompr-r85/3818/38182792/%2527Papa+Bear%2527+Painting+Print+on+Canvas.jpg",
+    scores: [1, 3, 4, 4, 2, 2, 1, 1, 3, 3]
   }
 ];
 
